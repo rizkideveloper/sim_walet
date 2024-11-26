@@ -3,40 +3,47 @@
 @section('container')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">{{ $title }}</h1>
+            <h3 class="mt-4">{{ $title }}</h3>
             <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active"><a href="{{ url('/stock') }}">Stock</a></li>
+                <li class="breadcrumb-item active"><a href="{{ url('/barangmasuk') }}">Barang Masuk</a></li>
                 <li class="breadcrumb-item">{{ $title }}</li>
             </ol>
 
             <div class="card mb-4">
                 <div class="card-body">
-                    <form action="{{ url('/stock') }}" method="post" id="form_add">
+                    <form action="{{ url('/barangmasuk') }}" method="post" id="form_add">
                         @csrf
+                        <div class="mb-4 row">
+                            <label for="inputDate" class="col-sm-2 col-form-label" id="required-field">Tanggal Masuk</label>
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control" id="inputDate" name="tanggal_masuk">
+                                <small class="text-danger error-text date_error"></small>
+                            </div>
+                        </div>
                         <table class="table table-bordered" id="tableAdd">
                             <tr>
-                                <th id="required-field">Date</th>
-                                <th id="required-field">Product Name</th>
-                                <th id="required-field">Qty</th>
-                                <th style="width: 15%">Action</th>
+                                {{-- <th id="required-field">Date</th> --}}
+                                <th id="required-field">Nama Produk</th>
+                                <th id="required-field">Jumlah Sarang</th>
+                                <th style="width: 15%">Berat</th>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="date" class="form-control" name="inputs[0][date]">
-                                    <small class="text-danger error-text inputs_0_date_error "></small>
-                                </td>
-                                <td>
                                     <select name="inputs[0][product_id]" class="form-control">
                                         <option value="">Please change one</option>
-                                        @foreach ($products as $item) 
+                                        @foreach ($products as $item)
                                             <option value="{{ $item->id }}">{{ $item->product_name }}</option>
                                         @endforeach
                                     </select>
                                     <small class="text-danger error-text inputs_0_product_id_error "></small>
                                 </td>
                                 <td>
-                                    <input type="number" class="form-control" name="inputs[0][qty]">
-                                    <small class="text-danger error-text inputs_0_qty_error "></small>
+                                    <input type="number" class="form-control" name="inputs[0][jumlah_sarang]">
+                                    <small class="text-danger error-text inputs_0_jumlahsarang_error "></small>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="inputs[0][berat]">
+                                    <small class="text-danger error-text inputs_0_berat_error "></small>
                                 </td>
                                 <td>
                                     <button type="button" id="addMore" class="btn btn-success">Add More</button>
@@ -55,23 +62,27 @@
         $('#addMore').click(function() {
             ++i;
             $('#tableAdd').append(
+                // <td>
+                //     <input type="date" class="form-control" name="inputs[` + i + `][date]">
+                //     <small class="text-danger error-text inputs_` + i + `_date_error "></small>
+                // </td>
                 `<tr>
                 <td>
-                    <input type="date" class="form-control" name="inputs[`+i+`][date]">
-                    <small class="text-danger error-text inputs_`+i+`_date_error "></small>
-                </td>
-                <td>
-                    <select name="inputs[`+i+`][product_id]" class="form-control">
+                    <select name="inputs[` + i + `][product_id]" class="form-control">
                                         <option value="">Please change one</option>
                                         @foreach ($products as $item) 
                                             <option value="{{ $item->id }}">{{ $item->product_name }}</option>
                                         @endforeach
                                     </select>
-                                     <small class="text-danger error-text inputs_`+i+`_product_id_error "></small>
+                                     <small class="text-danger error-text inputs_` + i + `_product_id_error "></small>
                 </td>
                 <td>
-                    <input type="number" class="form-control" name="inputs[`+i+`][qty]">
-                    <small class="text-danger error-text inputs_`+i+`_qty_error "></small>
+                    <input type="number" class="form-control" name="inputs[` + i + `][jumlah_sarang]">
+                    <small class="text-danger error-text inputs_` + i + `_jumlahsarang_error "></small>
+                </td>
+                <td>
+                    <input type="number" class="form-control" name="inputs[` + i + `][berat]">
+                    <small class="text-danger error-text inputs_` + i + `_berat_error "></small>
                 </td>
                 <td>
                     <button type="button" class="btn btn-danger remove-table-row">Remove</button>
@@ -104,20 +115,21 @@
                             $('small.' + prefix.replace(/[.]/g, '_') + '_error').text(val[0])
                         })
 
-                        console.log(response.error)
+                        $('.date_error').text(response.error.tanggal_masuk)
+
+                        console.log(response)
 
                     }
 
                     if (response.status == 1) {
-                        // $('.card-body').prepend(
-                        //     `<div class="alert alert-success">` + response.message + `</div>`
-                        // )
+                        $('.card-body').prepend(
+                            `<div class="alert alert-success">` + response.message + `</div>`
+                        )
 
                         // console.log(response.data)
 
-                        // $('#form_add')[0].reset()
-                        window.location.replace("/stock");
-                        // console.log(response.data)
+                        $('#form_add')[0].reset()
+                        // window.location.replace("/barangmasuk");
                     }
                 }
             })

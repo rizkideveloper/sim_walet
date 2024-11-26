@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\BarangMasukController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\HarvestController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ProfileController;
@@ -15,7 +15,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::middleware('auth')->group(function () {
 
     Route::resource('/product', ProductController::class)->middleware('role:admin');
-    Route::resource('/harvest', HarvestController::class)->middleware('role:admin');
+    Route::resource('/barangmasuk', BarangMasukController::class)->middleware('role:admin');
     Route::resource('/stock', StockController::class)->middleware('role:admin');
     Route::resource('/transaction', TransactionController::class)->middleware('role:admin');
 

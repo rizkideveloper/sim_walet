@@ -41,17 +41,12 @@ class StockController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'inputs.*.date' => 'required',
-                'inputs.*.product_id' => 'required|distinct|unique:stocks',
-                'inputs.*.qty' => 'required|numeric',
+                'inputs.*.product_id' => 'required|distinct|unique:stocks'
             ],
             [
-                'inputs.*.date.required' => 'date field is required',
                 'inputs.*.product_id.distinct' => 'enter product name a different',
                 'inputs.*.product_id.required' => 'product name field is required',
-                'inputs.*.product_id.unique' => 'product name has already been taken',
-                'inputs.*.qty.numeric' => 'qty field must be number',
-                'inputs.*.qty.required' => 'qty field is required',
+                'inputs.*.product_id.unique' => 'product name has already been taken'
             ]
         );
 
@@ -60,9 +55,9 @@ class StockController extends Controller
         } else {
             foreach ($request->inputs as $key => $value) {
                 Stock::create([
-                    'date' => $value['date'],
                     'product_id' => $value['product_id'],
-                    'qty' => $value['qty']
+                    'jumlah_sarang' => 0,
+                    'berat' => 0
                 ]);
             }
 

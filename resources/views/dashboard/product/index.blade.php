@@ -3,10 +3,10 @@
 @section('container')
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">{{ $title }}</h1>
-            <ol class="breadcrumb mb-4">
+            <h2 class="mt-4 mb-5">{{ $title }}</h2>
+            {{-- <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item">{{ $title }}</li>
-            </ol>
+            </ol> --}}
             
             @if (session()->has('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>

@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Interface</div>
+                <div class="sb-sidenav-menu-heading">Master</div>
                 <a class="nav-link {{ Request::is('dashboard*') ? 'active' : null }}" href="/dashboard">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
@@ -11,17 +11,18 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-dove"></i></div>
                     Product
                 </a>
-                <a class="nav-link {{ Request::is('harvest*') ? 'active' : null }}" href="/harvest">
-                    <div class="sb-nav-link-icon"><i class="fas fa-dove"></i></div>
-                    Harvest
-                </a>
                 <a class="nav-link {{ Request::is('stock*') ? 'active' : null }}" href="/stock">
                     <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
                     Stock
                 </a>
+                <div class="sb-sidenav-menu-heading">Transaction</div>
+                <a class="nav-link {{ Request::is('barangmasuk*') ? 'active' : null }}" href="/barangmasuk">
+                    <div class="sb-nav-link-icon"><i class="fas fa-warehouse"></i></div>
+                    Barang Masuk
+                </a>
                 <a class="nav-link {{ Request::is('transaction*') ? 'active' : null }}" href="/transaction">
                     <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-dollar"></i></div>
-                    Transaction
+                    Penjualan
                 </a>
                 {{-- <a class="nav-link collapsed {{ Request::is('peminjaman*') ? 'active' : null }}" href="/peminjaman" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                     aria-expanded="false" aria-controls="collapseLayouts">
